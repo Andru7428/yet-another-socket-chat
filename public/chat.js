@@ -5,7 +5,7 @@ socket.on("message", (msg) => {
   var item = document.createElement("li");
   item.textContent = `${msg.username}: ${msg.text}`;
   messages.appendChild(item);
-  window.scrollTo(0, document.body.scrollHeight);
+  messages.scrollTo(0, messages.scrollHeight);
 });
 
 socket.on("users", (io_users) => {
@@ -54,12 +54,4 @@ window.onload = () => {
       message_input.value = "";
     }
   });
-
-  /*
-  for (let i = 0; i < 30; i++) {
-    var item = document.createElement("li");
-    item.textContent = i;
-    messages.appendChild(item);
-  }
-  */
 };

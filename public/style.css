@@ -1,42 +1,74 @@
 body {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
   margin: 0;
-  padding-bottom: 3rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
 }
 
-.form {
-  background: rgba(0, 0, 0, 0.15);
-  padding: 0.25rem;
-  position: fixed;
+.content {
   display: flex;
-  height: 3rem;
-  box-sizing: border-box;
-  backdrop-filter: blur(10px);
+  flex: 1 1 auto;
+  overflow-y: auto;
 }
 
-#username_form {
-  bottom: 0;
-  right: 0;
+ul {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#messages {
+  flex: 1 1 auto;
+  overflow-y: scroll;
+}
+
+#users {
+  flex: 0 0 200px;
+  overflow-y: auto;
+}
+
+li {
+  padding: 0.5rem 1rem;
+  overflow-wrap: break-word;
+}
+
+.footer {
+  display: flex;
+  flex: 0 1 auto;
+}
+
+.form {
+  display: flex;
+  height: 3rem;
+  padding: 0.25rem;
+  background: rgba(0, 0, 0, 0.15);
 }
 
 #message_form {
-  bottom: 0;
-  left: 0;
-  right: 0;
+  flex: 1 1 auto;
 }
 
-#input {
+#username_form {
+  flex: 0 1 200px;
+}
+
+input {
+  flex: 1 1 auto;
   border: none;
   padding: 0 1rem;
-  flex-grow: 1;
   border-radius: 2rem;
   margin: 0.25rem;
 }
-#input:focus {
+
+input:focus {
   outline: none;
 }
+
 .form > button {
+  flex: 0 1 auto;
   background: #333;
   border: none;
   padding: 0 1rem;
@@ -44,42 +76,4 @@ body {
   border-radius: 3px;
   outline: none;
   color: #fff;
-}
-
-#messages {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-#messages > li {
-  padding: 0.5rem 1rem;
-}
-#messages > li:nth-child(odd) {
-  background: #efefef;
-}
-
-#users {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-#users > li {
-  padding: 0.5rem 1rem;
-}
-#users > li:nth-child(odd) {
-  background: #efefef;
-}
-
-table {
-  width: 100%;
-  height: 100vh;
-}
-
-td {
-  vertical-align: top;
-  overflow-y: scroll;
-}
-
-#user_list {
-  width: 200px;
 }

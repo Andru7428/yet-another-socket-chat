@@ -8,21 +8,17 @@
     <script type="text/javascript" src="chat.js"></script>
 </head>
 <body>
-    <table>
-      <tr>
-        <td>
-          <ul id="messages"></ul>
-        </td>
-        <td id="user_list">
-          <ul id="users"></ul>
-        </td>
-      </tr>
-    </table>
-    <form class="form" id="message_form" action="">
-      <input id="message_input" autocomplete="off" /><button>Send</button>
-    </form>
-    <form class="form" id="username_form" action="">
-      <input id="username_input" autocomplete="off"/><button>Connect</button>
-    </form>
+    <div class="content">
+      <ul id="messages"></ul>
+      <ul id="users"></ul>
+    </div>
+    <div class="footer">
+      <form class="form" id="message_form" action="">
+        <input id="message_input" autocomplete="off" /><button>Send</button>
+      </form>
+      <form class="form" id="username_form" action="">
+        <input id="username_input" autocomplete="off" maxlength="10" /><button>Connect</button>
+      </form>
+    </div>
 </body>
 </html>
