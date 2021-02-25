@@ -7,6 +7,16 @@ body {
     Arial, sans-serif;
 }
 
+#overlay {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
 .content {
   display: flex;
   flex: 1 1 auto;
@@ -35,11 +45,6 @@ li {
   overflow-wrap: break-word;
 }
 
-.footer {
-  display: flex;
-  flex: 0 1 auto;
-}
-
 .form {
   display: flex;
   height: 3rem;
@@ -48,11 +53,12 @@ li {
 }
 
 #message_form {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
 }
 
 #username_form {
-  flex: 0 1 200px;
+  max-width: 300px;
+  border-radius: 5px;
 }
 
 input {
