@@ -1,5 +1,5 @@
 const socket = io({ autoConnect: false });
-var username;
+var username, current_room;
 
 window.onload = () => {
   var username_input = document.getElementById("username_input");
@@ -7,13 +7,8 @@ window.onload = () => {
     e.preventDefault();
     if (username_input.value) {
       username = username_input.value;
-      socket.auth = { username };
-      socket.connect();
+      connect(username, "default");
       overlay.remove();
-      message_input.focus();
-      var item = document.createElement("li");
-      item.textContent = `[${new Date().toLocaleTimeString()}] ${username} has connected`;
-      messages.appendChild(item);
     }
   });
   username_input.focus();
@@ -24,6 +19,16 @@ window.onload = () => {
     if (message_input.value) {
       socket.emit("message", message_input.value);
       message_input.value = "";
+    }
+  });
+
+  var room_input = document.getElementById("room_input");
+  document.getElementById("room_form").addEventListener("submit", (e) => {
+    console.log(room_input.value);
+    e.preventDefault();
+    if (room_input.value) {
+      socket.emit("create room", room_input.value);
+      room_input.value = "";
     }
   });
 };
@@ -39,6 +44,16 @@ socket.on("users", (io_users) => {
     item.textContent = user.username;
     users.appendChild(item);
   });
+});
+
+socket.on("rooms", (rooms) => {
+  rooms.forEach((room) => {
+    addRoom(room);
+  });
+});
+
+socket.on("room created", (room) => {
+  addRoom(room);
 });
 
 socket.on("user connected", (user) => {
@@ -63,4 +78,30 @@ function addMessage(text) {
   item.textContent = text;
   messages.appendChild(item);
   messages.scrollTo(0, messages.scrollHeight);
+}
+
+function connect(username, room) {
+  if (current_room == room) return;
+  current_room = room;
+  rooms_list.innerHTML = "";
+  messages.innerHTML = "";
+  users.innerHTML = "";
+  socket.auth = { username, room };
+  socket.connect();
+  addMessage(`[${new Date().toLocaleTimeString()}] ${username} has connected`);
+}
+
+function addRoom(room) {
+  var item = document.createElement("li");
+  item.textContent = room;
+  item.id = "room_" + room;
+  item.addEventListener("click", (e) => {
+    socket.disconnect();
+    connect(username, room);
+  });
+  if (room == current_room) {
+    console.log(room);
+    item.style.backgroundColor = "CornflowerBlue";
+  }
+  rooms_list.appendChild(item);
 }

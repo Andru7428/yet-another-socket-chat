@@ -1,8 +1,11 @@
 const express = require("express");
+const { copyFileSync } = require("fs");
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const port = process.env.PORT || 3000;
+
+let rooms = ["default"];
 
 app.use(express.static("public"));
 
@@ -15,24 +18,37 @@ io.use((socket, next) => {
   if (!username) {
     return next(new Error("invalid username"));
   }
+  socket.room = socket.handshake.auth.room;
   socket.username = username;
   next();
 });
 
 io.on("connection", (socket) => {
-  console.log(`${socket.username} connected`);
+  socket.join(socket.room);
+
+  console.log(`${socket.username} connected to room ${socket.room}`);
 
   socket.on("disconnect", () => {
     console.log(`${socket.username} disconnected`);
-    socket.broadcast.emit("user disconnected", {
+    socket.broadcast.to(socket.room).emit("user disconnected", {
       userID: socket.id,
       username: socket.username,
     });
   });
 
   socket.on("message", (msg) => {
-    io.emit("message", { username: socket.username, text: msg });
+    io.to(socket.room).emit("message", {
+      username: socket.username,
+      text: msg,
+    });
     console.log("message: " + msg);
+  });
+
+  socket.on("create room", (room_name) => {
+    if (!rooms.includes(room_name)) {
+      rooms.push(room_name);
+      io.emit("room created", room_name);
+    }
   });
 
   const users = [];
@@ -42,9 +58,12 @@ io.on("connection", (socket) => {
       username: socket.username,
     });
   }
+
   socket.emit("users", users);
 
-  socket.broadcast.emit("user connected", {
+  socket.emit("rooms", rooms);
+
+  socket.broadcast.to(socket.room).emit("user connected", {
     userID: socket.id,
     username: socket.username,
   });

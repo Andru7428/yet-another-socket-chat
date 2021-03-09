@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Yet Another Socket Chat</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="chat.js"></script>
-</head>
-<body>
-  <div id="overlay">
-    <form class="form" id="username_form" action="">
-      <input id="username_input" autocomplete="off" maxlength="10" /><button>Connect</button>
-    </form>
-  </div>
-  <div class="content">
-    <ul id="messages"></ul>
-    <ul id="users"></ul>
-  </div>
-  <form class="form" id="message_form" action="">
-    <input id="message_input" autocomplete="off" /><button>Send</button>
-  </form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Yet Another Socket Chat</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="chat.js"></script>
+  </head>
+  <body>
+    <div id="overlay">
+      <form class="form" id="username_form" action="">
+        <input id="username_input" autocomplete="off" maxlength="10" /><button
+          >Connect</button
+        >
+      </form>
+    </div>
+    <div id="rooms">
+      <ul id="rooms_list"></ul>
+      <form class="form" id="room_form" action="">
+        <input id="room_input" autocomplete="off" /><button>Create</button>
+      </form>
+    </div>
+    <div id="win">
+      <div class="content">
+        <ul id="messages"></ul>
+        <ul id="users"></ul>
+      </div>
+      <form class="form" id="message_form" action="">
+        <input id="message_input" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
+  </body>
 </html>

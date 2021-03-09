@@ -1,10 +1,23 @@
 body {
   display: flex;
-  flex-flow: column;
   height: 100vh;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
+}
+
+#rooms {
+  display: flex;
+  flex-flow: column;
+  flex: 0 1 200px;
+  overflow-y: auto;
+  border-right: 1px solid;
+}
+
+#win {
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: column;
 }
 
 #overlay {
@@ -40,6 +53,10 @@ ul {
   overflow-y: auto;
 }
 
+#rooms_list {
+  overflow-y: auto;
+}
+
 li {
   padding: 0.5rem 1rem;
   overflow-wrap: break-word;
@@ -50,6 +67,10 @@ li {
   height: 3rem;
   padding: 0.25rem;
   background: rgba(0, 0, 0, 0.15);
+}
+
+#room_form {
+  flex-flow: column;
 }
 
 #message_form {
