@@ -95,6 +95,7 @@ function addRoom(room) {
   var item = document.createElement("li");
   item.textContent = room;
   item.id = "room_" + room;
+  item.classList.add("room_button");
   item.addEventListener("click", (e) => {
     socket.disconnect();
     connect(username, room);

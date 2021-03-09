@@ -52,11 +52,12 @@ io.on("connection", (socket) => {
   });
 
   const users = [];
-  for (let [id, socket] of io.of("/").sockets) {
-    users.push({
-      userID: id,
-      username: socket.username,
-    });
+  for (let [id, sckt] of io.of("/").sockets) {
+    if (sckt.room == socket.room)
+      users.push({
+        userID: id,
+        username: sckt.username,
+      });
   }
 
   socket.emit("users", users);
