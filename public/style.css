@@ -9,7 +9,7 @@ body {
 #rooms {
   display: flex;
   flex-flow: column;
-  flex: 0 1 200px;
+  flex: 0 0 200px;
   overflow-y: auto;
   border-right: 1px solid;
 }
